@@ -1,0 +1,41 @@
+function heartDelivery(input) {
+    let neighborhood = input.shift().split(`@`).map(Number);
+    let line;
+    let curPosition = 0;
+    
+    let fail = 0;
+    while ((line = input.shift()) !== "Love!") {
+        let [command, position] = line.split(` `);
+        position = Number(position);
+        curPosition += position;
+        if (curPosition >= neighborhood.length) {
+            curPosition = 0;
+        }
+        if (neighborhood[curPosition] !== 0) {
+            neighborhood[curPosition] -= 2;
+            if (neighborhood[curPosition] === 0) {
+                console.log(`Place ${curPosition} has Valentine's day.`)
+            }
+        } else {
+            console.log(`Place ${curPosition} already had Valentine's day.`)
+        }
+    }
+    console.log(`Cupid's last position was ${curPosition}.`);
+    let isSuccessful = true;
+
+    for (let a of neighborhood) {
+        if (a !== 0) {
+            isSuccessful = false;
+        }
+    }
+    for (let a of neighborhood) {
+        if (a !== 0) {
+            fail++;
+        }
+    }
+    if (isSuccessful) {
+        console.log("Mission was successful.");
+    } else {
+        console.log(`Cupid has failed ${fail} places.`);
+    }
+}
